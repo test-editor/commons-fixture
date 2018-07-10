@@ -1,0 +1,26 @@
+### Eclipse ###
+.classpath
+.checkstyle
+.project
+.settings/
+.metadata/
+bin/
+screenshots/
+
+### IntelliJ ###
+*.iml
+*.ipr
+*.iws
+.idea/
+out/
+
+### Gradle ###
+.gradle/
+build/
+!gradle-wrapper.jar
+
+### Emacs ###
+*~
+\#*\#
+.\#*
+.projectile
