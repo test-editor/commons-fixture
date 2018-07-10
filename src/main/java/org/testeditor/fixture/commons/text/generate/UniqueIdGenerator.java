@@ -27,7 +27,8 @@ public class UniqueIdGenerator {
     
     /**
      * Generates a unique identifier as a String with 64 hexadecimal characters.
-     * @return A unique identifier as a String in the form uid = 74cb6f38a27603017ed01b91433429f443b690b006c868c4288802d6241cd92d.
+     * @return A unique identifier as a String in the form 
+     * uid = 74cb6f38a27603017ed01b91433429f443b690b006c868c4288802d6241cd92d.
      * @throws FixtureException 
      */
     public String generateUniqueId() throws FixtureException  {
