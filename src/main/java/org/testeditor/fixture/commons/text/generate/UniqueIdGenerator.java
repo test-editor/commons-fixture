@@ -21,8 +21,9 @@ import java.util.UUID;
 import org.testeditor.fixture.core.FixtureException;
 
 /**
- * 
- * @author u096310
+ * This class offers methods to generate a unique ID up to 64 hexadecimal characters for testing purposes.
+ * These unique IDs are just for your convenience to fill input fields properly, to search for this unique 
+ * ID afterwards and just get a single result.    
  *
  */
 public class UniqueIdGenerator {
@@ -62,7 +63,7 @@ public class UniqueIdGenerator {
      * @throws FixtureException When something got wrong during ID generation. 
      * @throws IllegalArgumentException when given parameter amountOfCharacters is less then 1 and greater than 64
      */
-    public String generateUniquId(int amountOfCharacters) throws FixtureException {
+    public String generateUniqueId(int amountOfCharacters) throws FixtureException {
         if (amountOfCharacters > 0 && amountOfCharacters <= characterLength) {
             return generateUniqueId().substring(0, amountOfCharacters);
         } else {
