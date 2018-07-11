@@ -1,9 +1,9 @@
 /*******************************************************************************
  * Copyright (c) 2012 - 2018 Signal Iduna Corporation and others.
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html
+ * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
  * Signal Iduna Corporation - initial API and implementation
@@ -46,9 +46,9 @@ public class UniqueIdGenerator {
             salt = MessageDigest.getInstance(algorithm);
             salt.update(UUID.randomUUID().toString().getBytes(encoding));
         } catch (UnsupportedEncodingException e) {
-           throw new FixtureException("Unknown encoding.", FixtureException.keyValues("encoding", encoding));
-        }catch (NoSuchAlgorithmException e1) {
-           throw new FixtureException("Unknown algorythm.", FixtureException.keyValues("algorythmn", algorithm));
+            throw new FixtureException("Unknown encoding.", FixtureException.keyValues("encoding", encoding));
+        } catch (NoSuchAlgorithmException e1) {
+            throw new FixtureException("Unknown algorythm.", FixtureException.keyValues("algorythmn", algorithm));
 
         }
         return bytesToHex(salt.digest());
@@ -65,15 +65,17 @@ public class UniqueIdGenerator {
     public String generateUniquId(int amountOfCharacters) throws FixtureException {
         if (amountOfCharacters > 0 && amountOfCharacters <= characterLength) {
             return generateUniqueId().substring(0, amountOfCharacters);
-        }else {
-            throw new IllegalArgumentException("The number of characters should be between 1 and " + characterLength + " but was " + amountOfCharacters + ".");
+        } else {
+            throw new IllegalArgumentException("The number of characters should be between 1 and " + characterLength 
+                    + " but was " + amountOfCharacters + ".");
         }
     }
     
     private static String bytesToHex(byte[] in) {
         final StringBuilder builder = new StringBuilder();
-        for (final byte b: in)
+        for (final byte b: in) {
             builder.append(String.format("%02x", b));
+        }
         return builder.toString();
     }
 

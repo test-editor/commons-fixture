@@ -1,9 +1,9 @@
 /*******************************************************************************
  * Copyright (c) 2012 - 2018 Signal Iduna Corporation and others.
  * All rights reserved. This program and the accompanying materials
- * are made available under the terms of the Eclipse Public License v2.0
+ * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
- * http://www.eclipse.org/org/documents/epl-2.0/EPL-2.0.html
+ * http://www.eclipse.org/legal/epl-v10.html
  *
  * Contributors:
  * Signal Iduna Corporation - initial API and implementation
@@ -16,12 +16,12 @@ package org.testeditor.fixture.commons.text.generate;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.hamcrest.CoreMatchers.is;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testeditor.fixture.core.FixtureException;
 
-import static org.hamcrest.CoreMatchers.is;
 
 public class UniqueIdGeneratorTest {
     
@@ -30,7 +30,7 @@ public class UniqueIdGeneratorTest {
     
     @BeforeEach
     public void init() {
-      uidGenerator  = new UniqueIdGenerator(); 
+        uidGenerator  = new UniqueIdGenerator();
     }
 
     @Test
@@ -65,8 +65,7 @@ public class UniqueIdGeneratorTest {
         int wrongAmountofCharacters = 65;
         
         //when 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> 
-        {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             uidGenerator.generateUniquId(wrongAmountofCharacters);
         });
         
@@ -81,8 +80,7 @@ public class UniqueIdGeneratorTest {
         int wrongAmountofCharacters = -1;
         
         //when 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> 
-        {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             uidGenerator.generateUniquId(wrongAmountofCharacters);
         });
         
@@ -97,8 +95,7 @@ public class UniqueIdGeneratorTest {
         int wrongAmountofCharacters = 0;
         
         //when 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> 
-        {
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
             uidGenerator.generateUniquId(wrongAmountofCharacters);
         });
         
