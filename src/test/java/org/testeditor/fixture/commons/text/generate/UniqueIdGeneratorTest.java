@@ -52,7 +52,7 @@ public class UniqueIdGeneratorTest {
         int amountofCharacters = 9;
         
         // when
-        String uid = uidGenerator.generateUniquId(amountofCharacters);
+        String uid = uidGenerator.generateUniqueId(amountofCharacters);
         
         // then
         assertThat(uid.length(), is(9));
@@ -66,7 +66,7 @@ public class UniqueIdGeneratorTest {
         
         //when 
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            uidGenerator.generateUniquId(wrongAmountofCharacters);
+            uidGenerator.generateUniqueId(wrongAmountofCharacters);
         });
         
         // then
@@ -81,7 +81,7 @@ public class UniqueIdGeneratorTest {
         
         //when 
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            uidGenerator.generateUniquId(wrongAmountofCharacters);
+            uidGenerator.generateUniqueId(wrongAmountofCharacters);
         });
         
         // then
@@ -96,7 +96,7 @@ public class UniqueIdGeneratorTest {
         
         //when 
         Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
-            uidGenerator.generateUniquId(wrongAmountofCharacters);
+            uidGenerator.generateUniqueId(wrongAmountofCharacters);
         });
         
         // then
