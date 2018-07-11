@@ -5,27 +5,6 @@ addons:
     packages:
       - xvfb
 
-env: 
-  global: 
-    - # Environment variable for WebDriverManager see https://github.com/bonigarcia/webdrivermanager#known-issues
-    - secure: "kXJ4NVKPn27EvBKi8y9nR4bDKZKlTRZy1k0ZI6aJpSqjehFVNnD9jqHiG9Opjj5BMIJuL3yBniDdd8Ts4W2hrWqqe79jtw/7Fro2MS76ihAvbSsRVm273vfi4dBaewKC3l0h+peexRos8oFNJaF19DhNHRalQU8RDwHgQqL+0H4As5ggm3t0J1k87Qr3MBkPEDBWNNNmmhzQYhto8TQ/3tCTFoQ84kHJ/IVqx8fHiqdCCYoXfO0h9UbSttESkBjlkYD6V1/zFSVrB8uiShiIoWkU8jV2l8GE5cYrjG6T1WnGdA5YQZKE9B/Kd/bGlLf3jlcz/pqHtJwCNucT25lT8FoYC57IRXFuaRUJSxVDChIQRblHB+wRigHoi10KpgTiOqJgLFRGEZAANQTloPB4K36faM8Sd/qh8Iu7qFsxomstuP+76vIM9TsTUVvi6lPGaqtxZXnlxIbDe9ipEHt1H8Fc7BGeqm6lyrhp/f0aLUqIBcxrbKL9NDfdXamuNE/w64bTXPZOahUqnhYBSpJN4UubVhHyG0RQECPjeuSMD6JrsyBBgmx0HPSDVfr7v0OHRt6kR65o9BZaEdT71RRTmzc8//UIZKZjT8AVhw+0raw+OQyLNcU5eIPZOOD+YImSKGFKo67z68waoD40TClAVGXf9BppTDUIAgZ2ZrIteoc="
-    - secure: "iVcUhs+alKXOzqRkyDH9XqFd/ef2lt23wxuL4cEEJ0OqPE0GOce5UHq+DsOvcI8ErXQERQrt7nZ9ub9h5NngfpJMH3/axGc4nJkqD6MHqzcFYQ/nG+pNkIP/jmidJi1JN5cnnVzjuxJxkFtu8yg5ZL1/alumWEROiQ0mzdnLUKQqX5cHl9ht+Ndn6f45WG4Ar5Mv+LFttmChy+xB2AFVGxlka2X88j5h8ziINWka1qVK70vqrxTMlO6OtEE8t3jc5jq6Obt6E3IS8XJXuNzqtnJYdbQVTEj7iADA0rbNEZPdOJ9OKAwkklZIu+7abQIYPhEG0iRYw/W9Rb7n+WauUFSsFomATVaEnt1mR+Piy35RHCQhn0lewI27UCdCTOEB9ifLK1fse9vH44QoBvgh7eqiGErYfVcK/oAvidrMfEi5x7QlmMu1jwtTU16yYV1DRfDmSyWjZmONxUcybUa3gn8WSwBVMMO+8AF3q3bDKkVIacLHcUK/bN0rk5Y/u4XWIQDSWE0PrpysMD5NWBwFsGhNZIRmfVKAEqENNJk477NgJwQwiSoNZQi7vZ7V5EZsuNvHhorJppLic4bnwT1v2UnB897/nUtFeTqWl1NenDrLnt/0Aq0XTvKYtYmSFja2TXxp8anBkTos41vt4a0HDmoW8LtbGFIUOFpHc+BP79U="
-    
-  matrix: 
-    - FIREFOX_VERSION="latest"
-    - FIREFOX_VERSION="60.0.1"
- 
-before_install:
-  # Install firefox for testing.
-  - echo $FIREFOX_VERSION
-  - export FIREFOX_SOURCE_URL='https://download.mozilla.org/?product=firefox-'$FIREFOX_VERSION'&lang=en-US&os=linux64'
-  - wget --no-verbose -O /tmp/firefox-$FIREFOX_VERSION.tar.bz2 $FIREFOX_SOURCE_URL
-  - mkdir /tmp/firefox-$FIREFOX_VERSION
-  - tar -xvf /tmp/firefox-$FIREFOX_VERSION.tar.bz2 -C /tmp/firefox-$FIREFOX_VERSION
-  - export PATH=/tmp/firefox-$FIREFOX_VERSION/firefox:$PATH 
- # Use a virtual display.
-  - "export DISPLAY=:99.0"
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1920x1080x16"
 jdk:
   - oraclejdk8
 cache:
