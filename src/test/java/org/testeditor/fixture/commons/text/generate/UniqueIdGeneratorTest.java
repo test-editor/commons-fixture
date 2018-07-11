@@ -13,7 +13,8 @@
 
 package org.testeditor.fixture.commons.text.generate;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -40,7 +41,7 @@ public class UniqueIdGeneratorTest {
         String uid = uidGenerator.generateUniqueId();
         
         // then
-        Assert.assertThat(uid.length(), is(64));
+        assertThat(uid.length(), is(64));
     }
     
 
@@ -54,7 +55,7 @@ public class UniqueIdGeneratorTest {
         String uid = uidGenerator.generateUniquId(amountofCharacters);
         
         // then
-        Assert.assertThat(uid.length(), is(9));
+        assertThat(uid.length(), is(9));
     }
     
     @Test
@@ -70,7 +71,7 @@ public class UniqueIdGeneratorTest {
         });
         
         // then
-        Assert.assertEquals("The number of characters should be between 1 and 64 but was 65.", exception.getMessage());
+        assertEquals("The number of characters should be between 1 and 64 but was 65.", exception.getMessage());
     } 
 
     @Test
@@ -86,7 +87,7 @@ public class UniqueIdGeneratorTest {
         });
         
         // then
-        Assert.assertEquals("The number of characters should be between 1 and 64 but was -1.", exception.getMessage());
+        assertEquals("The number of characters should be between 1 and 64 but was -1.", exception.getMessage());
     } 
 
     @Test
@@ -102,7 +103,7 @@ public class UniqueIdGeneratorTest {
         });
         
         // then
-        Assert.assertEquals("The number of characters should be between 1 and 64 but was 0.", exception.getMessage());
+        assertEquals("The number of characters should be between 1 and 64 but was 0.", exception.getMessage());
     } 
 
 

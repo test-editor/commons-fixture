@@ -20,28 +20,35 @@ import java.util.UUID;
 
 import org.testeditor.fixture.core.FixtureException;
 
+/**
+ * 
+ * @author u096310
+ *
+ */
 public class UniqueIdGenerator {
     
     private final int characterLength = 64;
     
     
     /**
-     * Generates a unique identifier as a String with 64 hexadecimal characters.
-     * @return A unique identifier as a String in the form 
-     * uid = 74cb6f38a27603017ed01b91433429f443b690b006c868c4288802d6241cd92d.
+     * Generates a unique identifier as a String with 64 hexadecimal characters as 
+     * the output of a digest or cryptographic hash function, as a one-way fixed-sized-output.
+     * @return A unique identifier as a String in fixed size of 64 characters in the form 
+     * uid = 74cb6f38a27603017ed01b91433429f443b690b006c868c4288802d6241cd92d. 
+     * Using Message Digest with salt please refer to https://en.wikipedia.org/wiki/Salt_(cryptography) 
      * @throws FixtureException 
      */
     public String generateUniqueId() throws FixtureException  {
         String encoding = "UTF-8";
-        String algorythm = "SHA-256";
+        String algorithm = "SHA-256";
         MessageDigest salt = null;
         try {
-            salt = MessageDigest.getInstance(algorythm);
+            salt = MessageDigest.getInstance(algorithm);
             salt.update(UUID.randomUUID().toString().getBytes(encoding));
         } catch (UnsupportedEncodingException e) {
            throw new FixtureException("Unknown encoding.", FixtureException.keyValues("encoding", encoding));
         }catch (NoSuchAlgorithmException e1) {
-           throw new FixtureException("Unknown algorythm.", FixtureException.keyValues("algorythmn", algorythm));
+           throw new FixtureException("Unknown algorythm.", FixtureException.keyValues("algorythmn", algorithm));
 
         }
         return bytesToHex(salt.digest());
@@ -53,7 +60,7 @@ public class UniqueIdGenerator {
      * @param amountOfCharacters The number of hexadecimal characters that should be returned.
      * @return A unique identifier as a String in the form 74cb6f38a2760 when the amounOfCharacters = 13.
      * @throws FixtureException When something got wrong during ID generation. 
-     * @throws IllegalArgumentException when given parameter amountOfCharacters is less then 0 and greater than 64
+     * @throws IllegalArgumentException when given parameter amountOfCharacters is less then 1 and greater than 64
      */
     public String generateUniquId(int amountOfCharacters) throws FixtureException {
         if (amountOfCharacters > 0 && amountOfCharacters <= characterLength) {
