@@ -39,21 +39,19 @@ class DateGenerator {
      * For a negative offset = -14 and current date = 02.08.2014 <br>
      * You will get a date as String like "19.07.2014".
      *
-     * @param daysToAdd
+     * @param offsetInDays
      *            Offset in days, as a long.  A negative number represents a day in the past 
      *            (-30 means 30 days in the past). Accordingly a positive number represents a day in the future.
      * @param format
-     *            String as "dd.MM.yyyy". The letters representing the pattern
-     *            for the format please refer for letters at
-     *            {@link SimpleDateFormat}. <br>
-     *            <br>
+     *            String in the form "dd.MM.yyyy". Regarding the letters representing the pattern, 
+     *            refer to {@link SimpleDateFormat}.
      *
      * @return Date as String in the preferred format
      */
-    public String generateDateFromNowWithOffset(long daysToAdd, String format) {
+    public String generateDateFromNowWithOffset(long offsetInDays, String format) {
         LocalDateTime timePoint = LocalDateTime.now();
         LocalDate localDate = timePoint.toLocalDate();
-        LocalDate daysWithOffset = localDate.plusDays(daysToAdd);
+        LocalDate daysWithOffset = localDate.plusDays(offsetInDays);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return daysWithOffset.format(formatter);
     }

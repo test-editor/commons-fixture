@@ -61,6 +61,47 @@ public class DateGeneratorTest {
         // then
         Assert.assertEquals(formattedString, birthdateWithOffset);
     }
+    
+    @Test
+    public void generateDateFromNowWithNoOffsetTest() {
+        
+        // given
+        int daystoAdd = 0;
+        String format = "dd.MM.yyyy";
+        LocalDateTime timePoint = LocalDateTime.now();
+        LocalDateTime days = timePoint.plusDays(daystoAdd);
+        LocalDate localDate = days.toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        String formattedString = localDate.format(formatter);
+        
+        // when
+        DateGenerator dateGenerator = new DateGenerator();
+        String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(daystoAdd , format);
+        
+        // then
+        Assert.assertEquals(formattedString, birthdateWithOffset);
+    }
+    
+    @Test
+    public void generateDateFromNowWithMoreThanOneYearOffsetTest() {
+        
+        // given
+        int daystoAdd = 366;
+        String format = "dd.MM.yyyy";
+        LocalDateTime timePoint = LocalDateTime.now();
+        LocalDateTime days = timePoint.plusDays(daystoAdd);
+        LocalDate localDate = days.toLocalDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        String formattedString = localDate.format(formatter);
+        
+        // when
+        DateGenerator dateGenerator = new DateGenerator();
+        String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(daystoAdd , format);
+        
+        // then
+        Assert.assertEquals(formattedString, birthdateWithOffset);
+    }
+    
 }
 
 
