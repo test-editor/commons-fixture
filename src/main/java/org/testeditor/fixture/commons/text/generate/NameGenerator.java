@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import io.inbot.testfixtures.RandomNameGenerator;
@@ -34,31 +35,37 @@ import io.inbot.testfixtures.RandomNameGenerator;
  * The random seed can be controlled via the constructor of this class. This ensures that you can regenerate the same
  * sequence of names if you use the same seed.
  *
- * Limitations: the names are English and do not contain any special characters. To test with german, umlauts, turkish, 
- * arabian, polish, french, portuguese or spanish special characters please use the csv files under 
- * src/main/resources/names.
+ * The names are in english ,german with umlauts, turkish, arabian, polish, french, portuguese or spanish 
+ * special characters. The resources can be found under src/main/resources/names.
  *
  */
-public class NameGenerator {
-    
-    private RandomNameGenerator randomNameGenerator = null;
+public class NameGenerator extends RandomNameGenerator {
     
     
     /**
-     * 
-     * @param seed
+     * Generates names, with email addresses and company names. 
+     */
+    public NameGenerator() {
+        super(loadNames("names/firstnames.csv"),
+               loadNames("names/lastnames.csv"),loadNames("names/companies.csv"));
+        super.shuffle(new Random());
+    }
+    
+    /**
+     * Generates names, with email addresses and company names. 
+     * @param seed  The random seed ensures that you can regenerate 
+     * the same sequence of names if you use the same seed.
      */
     public NameGenerator(long seed) {
-        randomNameGenerator = new RandomNameGenerator(loadNames("names/firstnames.csv"),
-               loadNames("names/lastnames.csv"),loadNames("namescompanies.csv"));
-        System.err.println("What");
-       
+        super(loadNames("names/firstnames.csv"),
+                loadNames("names/lastnames.csv"),loadNames("names/companies.csv"));
+        shuffle(new Random(seed));
     }
     
     private static List<String> loadNames(String resource) {
         List<String> names = new ArrayList<>();
         // use classloader that loaded the jar with this class to ensure we can get the csvs
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(RandomNameGenerator.class
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(NameGenerator.class
                 .getClassLoader().getResourceAsStream(resource), StandardCharsets.UTF_8))) {
             br.lines().map(String::trim).filter(line -> line.length() > 0).forEach(names::add);
         } catch (IOException e) {
@@ -68,59 +75,55 @@ public class NameGenerator {
     }       
 
     public static String getRandomFirstName() {
-        RandomNameGenerator randomNameGenerator = new RandomNameGenerator(System.currentTimeMillis());
-        return randomNameGenerator.nextFirstName();
+        NameGenerator nameGenerator = new NameGenerator(System.currentTimeMillis());
+        return nameGenerator.nextFirstName();
     }
     
     public static String getFirstName(long seed) {
-        RandomNameGenerator randomNameGenerator = new RandomNameGenerator(seed);
-        return randomNameGenerator.nextFirstName();
+        NameGenerator nameGenerator = new NameGenerator(seed);
+        return nameGenerator.nextFirstName();
     }
     
     public static String getRandomFullName() {
-        RandomNameGenerator randomNameGenerator = new RandomNameGenerator(System.currentTimeMillis());
-        return randomNameGenerator.nextFullName();
+        NameGenerator nameGenerator = new NameGenerator(System.currentTimeMillis());
+        return nameGenerator.nextFullName();
     }
     
     public static String getFullName(long seed) {
-        RandomNameGenerator randomNameGenerator = new RandomNameGenerator(seed);
-        return randomNameGenerator.nextFullName();
+        NameGenerator nameGenerator = new NameGenerator(seed);
+        return nameGenerator.nextFullName();
     }
     
     public static String getRandomLastName() {
-        RandomNameGenerator randomNameGenerator = new RandomNameGenerator(System.currentTimeMillis());
-        return randomNameGenerator.nextLastName();
+        NameGenerator nameGenerator = new NameGenerator(System.currentTimeMillis());
+        return nameGenerator.nextLastName();
     }
 
     public static String getLastName(long seed) {
-        RandomNameGenerator randomNameGenerator = new RandomNameGenerator(seed);
-        return randomNameGenerator.nextLastName();
+        NameGenerator nameGenerator = new NameGenerator(seed);
+        return nameGenerator.nextLastName();
     }
     
     public static String getRandomCompanyName() {
-        RandomNameGenerator randomNameGenerator = new RandomNameGenerator(System.currentTimeMillis());
-        return randomNameGenerator.nextCompanyName();
+        NameGenerator nameGenerator = new NameGenerator(System.currentTimeMillis());
+        return nameGenerator.nextCompanyName();
     }
     
     public static String getCompanyName(long seed) {
-        RandomNameGenerator randomNameGenerator = new RandomNameGenerator(seed);
-        return randomNameGenerator.nextCompanyName();
+        NameGenerator nameGenerator = new NameGenerator(seed);
+        return nameGenerator.nextCompanyName();
     }
     
     public static String[] getRandomPersonFields() {
-        RandomNameGenerator randomNameGenerator = new RandomNameGenerator(System.currentTimeMillis());
-        return randomNameGenerator.nextPersonFields();
+        NameGenerator nameGenerator = new NameGenerator(System.currentTimeMillis());
+        return nameGenerator.nextPersonFields();
     }
     
     public static String[] getPersonFields(long seed) {
-        RandomNameGenerator randomNameGenerator = new RandomNameGenerator(seed);
-        return randomNameGenerator.nextPersonFields();
+        NameGenerator nameGenerator = new NameGenerator(seed);
+        return nameGenerator.nextPersonFields();
     }
     
-    public String[] getExtendedPersonFields(long seed) {
-        return this.randomNameGenerator.nextPersonFields();
-    }
-
 }
 
 

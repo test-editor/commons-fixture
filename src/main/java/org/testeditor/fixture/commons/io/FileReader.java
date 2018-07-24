@@ -13,16 +13,24 @@
 
 package org.testeditor.fixture.commons.io;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testeditor.fixture.commons.text.generate.NameGenerator;
 import org.testeditor.fixture.core.FixtureException;
 
 import com.google.common.io.CharStreams;
+
+import io.inbot.testfixtures.RandomNameGenerator;
+
 
 public class FileReader {
     
@@ -51,6 +59,23 @@ public class FileReader {
             result = "";
         }
         return result;
+    }
+    
+    /**
+     * 
+     * @param resource
+     * @return
+     */
+    public  List<String> loadNames(String resource) {
+        List<String> names = new ArrayList<>();
+        // use classloader that loaded the jar with this class to ensure we can get the csv's
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(
+                NameGenerator.class.getClassLoader().getResourceAsStream(resource), StandardCharsets.UTF_8))) {
+            br.lines().map(String::trim).filter(line -> line.length() > 0).forEach(names::add);
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+        return Collections.unmodifiableList(names);
     }
 
 }

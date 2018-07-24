@@ -13,6 +13,8 @@
 
 package org.testeditor.fixture.commons.io;
 
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.testeditor.fixture.commons.io.FileReader;
@@ -31,5 +33,29 @@ public class FileReaderTest {
         String fileContentAsString = reader.getFileContentAsString("utf8EncodedTextWithUmlaut.txt");
         Assert.assertEquals(result, fileContentAsString);
     }
+    
+    @Test
+    public void testReadfirstnames() throws Exception {
+        FileReader reader = new FileReader();
+        String fileContentAsString = reader.getFileContentAsString("names/firstnames.csv");
+        Assert.assertTrue(fileContentAsString.startsWith("Aabid"));
+    }
+    
+    @Test
+    public void testReadlastnames() throws Exception {
+        FileReader reader = new FileReader();
+        String fileContentAsString = reader.getFileContentAsString("names/lastnames.csv");
+        Assert.assertTrue(fileContentAsString.startsWith("Aaberg"));
+    }
+    
+    @Test
+    public void testloadfirstnames() throws Exception {
+        FileReader reader = new FileReader();
+        List<String> names = reader.loadNames("names/lastnames.csv");
+        Assert.assertEquals(names.get(0), "Aaberg");
+    }
+    
+    
+
 
 }

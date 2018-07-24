@@ -28,7 +28,7 @@ class NameGeneratorTest {
     @Test
     void generateFirstNameWithSeedTest() {
         String randomName = NameGenerator.getFirstName(32);
-        Assert.assertEquals("Briana", randomName);
+        Assert.assertEquals("Ugochi", randomName);
     }
       
     @Test
@@ -36,13 +36,14 @@ class NameGeneratorTest {
         String randomName = NameGenerator.getRandomFullName();
         Assert.assertNotNull(randomName);
         Assert.assertTrue(randomName.length() > 0);
-        Assert.assertTrue(randomName.matches("[a-zA-Z]*[\\s]{1}[a-zA-Z].*"));
+        //\p{L} - any Unicode letter. \p{M} - any diacritic. \s - whitespace, ' and - are literal single quote and -
+        Assert.assertTrue(randomName.matches("(?U)[\\p{L}\\p{M}]+(?:[\\s'-][\\p{L}\\p{M}]+)*"));
     }
 
     @Test
     void generateFullnameWithSeed() {
         String randomName = NameGenerator.getFullName(32);
-        Assert.assertEquals("Briana Dimpfl", randomName);
+        Assert.assertEquals("Ugochi Strohmeier", randomName);
     }
     
     @Test
@@ -55,7 +56,7 @@ class NameGeneratorTest {
     @Test
     void generateLastNameWithSeedTest() {
         String randomName = NameGenerator.getLastName(32);
-        Assert.assertEquals("Dimpfl", randomName);
+        Assert.assertEquals("Strohmeier", randomName);
     }
     
     @Test
@@ -68,7 +69,7 @@ class NameGeneratorTest {
     @Test
     void generateCompanyNameWithSeedTest() {
         String randomName = NameGenerator.getCompanyName(32);
-        Assert.assertEquals("Yingli Green Energy Holding Company Limited", randomName);
+        Assert.assertEquals("Fortune Brands Home & Security", randomName);
     }
     
     @Test
@@ -81,23 +82,22 @@ class NameGeneratorTest {
     @Test
     void generatePersonFieldsNameTest() {
         String[] personFields = NameGenerator.getPersonFields(32);
-        Assert.assertEquals("Broiana", personFields[0]);
-        Assert.assertEquals("Dimpfl", personFields[1]);
-        Assert.assertEquals("Yingli Green Energy Holding Company Limited", personFields[2]);
-        Assert.assertEquals("yingligreenenergyholdingcompanylimited.com", personFields[3]);
-        Assert.assertEquals("brianadimpfl@yingligreenenergyholdingcompanylimited.com", personFields[4]);
+        Assert.assertEquals("Ugochi", personFields[0]);
+        Assert.assertEquals("Strohmeier", personFields[1]);
+        Assert.assertEquals("Fortune Brands Home & Security", personFields[2]);
+        Assert.assertEquals("fortunebrandshomesecurity.com", personFields[3]);
+        Assert.assertEquals("ugochistrohmeier@fortunebrandshomesecurity.com", personFields[4]);
     }
     
     @Test
-    void generatePersonFieldsWithGermanNamesTest() {
-        long seed = 32;
-        NameGenerator nameGen = new NameGenerator(seed);
-        String[] personFields = nameGen.getExtendedPersonFields(seed);
-        Assert.assertEquals("Briana", personFields[0]);
-        Assert.assertEquals("Dimpfl", personFields[1]);
-        Assert.assertEquals("Yingli Green Energy Holding Company Limited", personFields[2]);
-        Assert.assertEquals("yingligreenenergyholdingcompanylimited.com", personFields[3]);
-        Assert.assertEquals("brianadimpfl@yingligreenenergyholdingcompanylimited.com", personFields[4]);
+    void generatePersonFieldsWithUmlautTest() {
+        long seed = 1;
+        String[] personFields = NameGenerator.getPersonFields(seed);
+        Assert.assertEquals("Özşan", personFields[0]);
+        Assert.assertEquals("Marois", personFields[1]);
+        Assert.assertEquals("Manning & Napier", personFields[2]);
+        Assert.assertEquals("manningnapier.com", personFields[3]);
+        Assert.assertEquals("zanmarois@manningnapier.com", personFields[4]);
     }
     
 }
