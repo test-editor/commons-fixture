@@ -25,57 +25,49 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testeditor.fixture.commons.text.generate.NameGenerator;
-import org.testeditor.fixture.core.FixtureException;
 
 import com.google.common.io.CharStreams;
 
-import io.inbot.testfixtures.RandomNameGenerator;
+
 
 
 public class FileReader {
     
     private static final Logger logger = LoggerFactory.getLogger(FileReader.class);
+    
 
     /**
      * Opens a file defined as fileName and read the content line by line.
      * 
      * @return File content as String
+     * @throws IOException 
      */
-    public String getFileContentAsString(String fileName) throws FixtureException {
+    public String getFileContentAsString(String fileName) throws IOException {
 
         // Get file from resources folder
-        ClassLoader classLoader = getClass().getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream(fileName);
-       
-        String result = null;
-        try {
-            result = CharStreams.toString(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
-        } catch (IOException e) {
-            logger.info("The file with the name {} can not be read in the resource folder. {}" , fileName, e);
-            throw new FixtureException("file could not be found in resource folder",
-                    FixtureException.keyValues("fileName", fileName));
-        } catch (NullPointerException e) {
-            logger.info("The file with the name {} can not be found in the resource folder.", fileName);
-            result = "";
-        }
-        return result;
+        InputStream inputStream = resolveInputStream(fileName, getClass()); 
+        return CharStreams.toString(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
     }
     
     /**
-     * 
-     * @param resource
-     * @return
+     * Opens a file and extract all names in a line and return a List of Strings.
+     * @param resourceName 
+     * @return names in each separate line
      */
-    public  List<String> loadNames(String resource) {
+    public  List<String> loadNames(String resourceName) {
         List<String> names = new ArrayList<>();
         // use classloader that loaded the jar with this class to ensure we can get the csv's
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                NameGenerator.class.getClassLoader().getResourceAsStream(resource), StandardCharsets.UTF_8))) {
-            br.lines().map(String::trim).filter(line -> line.length() > 0).forEach(names::add);
-        } catch (IOException e) {
-            throw new IllegalStateException(e);
-        }
+      
+        BufferedReader br = new BufferedReader(new InputStreamReader(
+                resolveInputStream(resourceName, NameGenerator.class), StandardCharsets.UTF_8)) ;
+        br.lines().map(String::trim).filter(line -> line.length() > 0).forEach(names::add);
+        
         return Collections.unmodifiableList(names);
     }
+    
+    private InputStream resolveInputStream(String resourceName, Class<?> className) {
+        return className.getClassLoader().getResourceAsStream(resourceName);
+    }
+    
 
 }

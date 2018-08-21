@@ -29,29 +29,49 @@ public class FileReaderTest {
 
     @Test
     public void testReadFile() throws Exception {
+        // given
         FileReader reader = new FileReader();
+        
+        // when 
         String fileContentAsString = reader.getFileContentAsString("utf8EncodedTextWithUmlaut.txt");
+        
+        // then
         Assert.assertEquals(result, fileContentAsString);
     }
     
     @Test
-    public void testReadfirstnames() throws Exception {
+    public void testReadFirstnames() throws Exception {
+        // given
         FileReader reader = new FileReader();
+        
+        // when 
         String fileContentAsString = reader.getFileContentAsString("names/firstnames.csv");
+        
+        // then
         Assert.assertTrue(fileContentAsString.startsWith("Aabid"));
     }
     
     @Test
-    public void testReadlastnames() throws Exception {
+    public void testReadLastnames() throws Exception {
+        // given
         FileReader reader = new FileReader();
+        
+        // when 
         String fileContentAsString = reader.getFileContentAsString("names/lastnames.csv");
+        
+        // then
         Assert.assertTrue(fileContentAsString.startsWith("Aaberg"));
     }
     
     @Test
-    public void testloadfirstnames() throws Exception {
+    public void testLoadLastnames() throws Exception {
+        // given        
         FileReader reader = new FileReader();
+        
+        // when 
         List<String> names = reader.loadNames("names/lastnames.csv");
+        
+        // then
         Assert.assertEquals(names.get(0), "Aaberg");
     }
     
