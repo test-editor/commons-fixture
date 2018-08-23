@@ -19,43 +19,155 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * This Class is for convenience purposes to use in tests. To create Birthday dates in the past with a negative number
- * as offset or a positive number for birthday dates in the future. <p>
+ * This Class is for convenience purposes to use in tests. To create e.g. birthday dates in the past with a negative 
+ * number as offset or a positive number for birthday dates in the future. For increasing dates as year you have to 
+ * use the OffsetTyp.YEAR, the usage is equivalent for all other OffsetTypes [YEAR, MONTH, WEEK, DAY, HOUR, MINUTE, 
+ * SECOND, MILLISECOND] 
  * 
- * The method generateDateFromNowWithOffset() returns a date as String in a given format like e.g.
- * "dd.MM.yyyy" with a given offset in days henceforth. <br>
- * E.g. current date = 02.08.2014; offset = 14; <br>
- * You will get a date as String like "16.08.2014". <br>
- * For a negative offset = -14 and current date = 02.08.2014 <br>
- * You will get a date as String like "19.07.2014".
  */
 class DateGenerator {
     
+    enum OffsetType {
+        YEAR, 
+        MONTH,
+        WEEK,
+        DAY, 
+        HOUR,
+        MINUTE, 
+        SECOND, 
+        MILLISECOND 
+    }
+
     /**
-     * This method returns a date as String in a given format like e.g.
-     * "dd.MM.yyyy" with a given offset in days henceforth. <br>
-     * E.g. current date = 02.08.2014; offset = 14; <br>
+     * This method returns a date as String in a given format like e.g."dd.MM.yyyy" with a given offset
+     * in e.g years, months, weeks, days, hours, minutes, seconds, milliseconds henceforth. <br>
+     * E.g. current date = 02.08.2014; OffsetType.DAY ; offset = 14; <br>
      * You will get a date as String like "16.08.2014". <br>
      * For a negative offset = -14 and current date = 02.08.2014 <br>
      * You will get a date as String like "19.07.2014".
      *
-     * @param offsetInDays
-     *            Offset in days, as a long.  A negative number represents a day in the past 
-     *            (-30 means 30 days in the past). Accordingly a positive number represents a day in the future.
+     * @param offset
+     *            This offset represents a number as a long.  A negative number represents e.g. 
+     *            a day for the OffsetType.DAY in the past (-30 means 30 days in the past). 
+     *            Accordingly a positive number represents a day in the future.
+     *            This is equivalent for all the other OffsetTypes like YEAR, MONTH, WEEK, HOUR, MINUTE, 
+     *            SECOND, MILLISECOND       
      * @param format
      *            String in the form "dd.MM.yyyy". Regarding the letters representing the pattern, 
      *            refer to {@link SimpleDateFormat}.
+     *            
+     * @param type This {@link Enum} represents which OffsetType the user wants to manipulate. 
+     * Possible options are:
+     * 
+     * <ul>
+     *   <li>YEAR</li>
+     *   <li>MONTH</li>
+     *   <li>WEEK</li>
+     *   <li>DAY</li>
+     *   <li>HOUR</li>
+     *   <li>MINUTE</li>
+     *   <li>SECOND</li>
+     *   <li>MILLISECOND</li>
+     * </ul>  
+     *    
      *
-     * @return Date as String in the preferred format
+     * @return Date as String in the preferred format, included given offset.
      */
-    public String generateDateFromNowWithOffset(long offsetInDays, String format) {
-        LocalDateTime timePoint = LocalDateTime.now();
-        LocalDate localDate = timePoint.toLocalDate();
-        LocalDate daysWithOffset = localDate.plusDays(offsetInDays);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
-        return daysWithOffset.format(formatter);
+    public String generateDateFromNowWithOffset(long offset, String format, OffsetType type) {
+        String formattedDateWithOffset = null;
+        switch (type) {
+            case YEAR:
+                formattedDateWithOffset = generateYearsFromNowWithOffset(offset, format);
+                break;
+            case MONTH:
+                formattedDateWithOffset = generateMonthsFromNowWithOffset(offset, format);
+                break; 
+            case WEEK:
+                formattedDateWithOffset = generateWeeksFromNowWithOffset(offset, format);
+                break;
+            case DAY:
+                formattedDateWithOffset = generateDaysFromNowWithOffset(offset, format);
+                break;
+            case HOUR:
+                formattedDateWithOffset = generateHoursFromNowWithOffset(offset, format);    
+                break; 
+            case MINUTE:
+                formattedDateWithOffset = generateMinutesFromNowWithOffset(offset, format);        
+                break;    
+            case SECOND:
+                formattedDateWithOffset = generateSecondsFromNowWithOffset(offset, format);
+                break;
+            case MILLISECOND:
+                formattedDateWithOffset = generateMillisecondsFromNowWithOffset(offset, format);
+                break;                
+            default:
+                break;
+        }
+        return formattedDateWithOffset;
     }
-        
+
+    protected String generateYearsFromNowWithOffset(long offset, String format) {
+        LocalDateTime localDate = createLocalDateTime();
+        LocalDate dateWithOffset = localDate.plusYears(offset).toLocalDate();
+        return formattedDate(format, dateWithOffset);
+    }
+
+    protected String generateMonthsFromNowWithOffset(long offset, String format) {
+        LocalDateTime localDate = createLocalDateTime();
+        LocalDate dateWithOffset = localDate.plusMonths(offset).toLocalDate();
+        return formattedDate(format, dateWithOffset);
+    }
+    
+    protected String generateWeeksFromNowWithOffset(long offset, String format) {
+        LocalDateTime localDate = createLocalDateTime();
+        LocalDate dateWithOffset = localDate.plusWeeks(offset).toLocalDate();
+        return formattedDate(format, dateWithOffset);
+    }
+    
+    protected String generateDaysFromNowWithOffset(long offset, String format) {
+        LocalDateTime localDate = createLocalDateTime();
+        LocalDate dateWithOffset = localDate.plusDays(offset).toLocalDate();
+        return formattedDate(format, dateWithOffset);
+    }
+
+    protected String generateHoursFromNowWithOffset(long offset, String format) {
+        LocalDateTime localDate = createLocalDateTime();
+        LocalDateTime dateWithOffset = localDate.plusHours(offset);
+        return formattedDate(format, dateWithOffset);
+    }
+
+    protected String generateMinutesFromNowWithOffset(long offset, String format) {
+        LocalDateTime localDate = createLocalDateTime();
+        LocalDateTime dateWithOffset = localDate.plusMinutes(offset);
+        return formattedDate(format, dateWithOffset);
+    }
+
+    protected String generateSecondsFromNowWithOffset(long offset, String format) {
+        LocalDateTime localDate = createLocalDateTime();
+        LocalDateTime dateWithOffset = localDate.plusSeconds(offset);
+        return formattedDate(format, dateWithOffset);
+    }
+    
+    protected String generateMillisecondsFromNowWithOffset(long offset, String format) {
+        LocalDateTime localDate = createLocalDateTime();
+        LocalDateTime dateWithOffset = localDate.plusNanos(offset * 1000000);
+        return formattedDate(format, dateWithOffset);
+    }
+ 
+    protected LocalDateTime createLocalDateTime() {
+        return LocalDateTime.now();
+    }    
+    
+    protected String formattedDate(String format, LocalDate dateWithOffset) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        return dateWithOffset.format(formatter);
+    }
+    
+    protected String formattedDate(String format, LocalDateTime dateWithOffset) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        return dateWithOffset.format(formatter);
+    }
+
 }
 
 
