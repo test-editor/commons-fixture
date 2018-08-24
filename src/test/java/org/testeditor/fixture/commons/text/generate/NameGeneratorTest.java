@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.IOException;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
@@ -176,14 +177,20 @@ class NameGeneratorTest {
     @Test
     void getExceptionWhenLoadingNames() {
         // given
+        String ecpectedResourceName = "notExisting.csv";
 
         //when 
         Throwable exception = assertThrows(FixtureException.class, () -> {
-            NameGenerator.loadNames("notExisting.csv");
+            NameGenerator.loadNames(ecpectedResourceName);
         });
         
         // then
         assertEquals("Exception occured during loading names", exception.getMessage());
+        
+        Map<String, Object> keyValueStore = ((FixtureException) exception).getKeyValueStore();
+        String actualResourceName = (String) keyValueStore.get("resourceName");
+        Assert.assertEquals(ecpectedResourceName, actualResourceName);
+        
     }
 }
 

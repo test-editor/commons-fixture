@@ -65,7 +65,7 @@ public class UniqueIdGeneratorTest {
         int wrongAmountofCharacters = 65;
         
         //when 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+        Throwable exception = assertThrows(FixtureException.class, () -> {
             uidGenerator.generateUniqueId(wrongAmountofCharacters);
         });
         
@@ -80,7 +80,7 @@ public class UniqueIdGeneratorTest {
         int wrongAmountofCharacters = -1;
         
         //when 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+        Throwable exception = assertThrows(FixtureException.class, () -> {
             uidGenerator.generateUniqueId(wrongAmountofCharacters);
         });
         
@@ -95,7 +95,7 @@ public class UniqueIdGeneratorTest {
         int wrongAmountofCharacters = 0;
         
         //when 
-        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+        Throwable exception = assertThrows(FixtureException.class, () -> {
             uidGenerator.generateUniqueId(wrongAmountofCharacters);
         });
         
