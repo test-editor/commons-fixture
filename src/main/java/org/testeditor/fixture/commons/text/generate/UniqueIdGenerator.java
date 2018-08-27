@@ -19,6 +19,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 import org.testeditor.fixture.core.FixtureException;
+import org.testeditor.fixture.core.interaction.FixtureMethod;
 
 /**
  * This class offers methods to generate a unique ID up to 64 hexadecimal characters for testing purposes.
@@ -37,8 +38,9 @@ public class UniqueIdGenerator {
      * @return A unique identifier as a String in fixed size of 64 characters in the form 
      * uid = 74cb6f38a27603017ed01b91433429f443b690b006c868c4288802d6241cd92d. 
      * Using Message Digest with salt please refer to https://en.wikipedia.org/wiki/Salt_(cryptography) 
-     * @throws FixtureException 
+     * @throws FixtureException When encoding or algorithm is unknown.
      */
+    @FixtureMethod
     public String generateUniqueId() throws FixtureException  {
         String encoding = "UTF-8";
         String algorithm = "SHA-256";
@@ -60,15 +62,18 @@ public class UniqueIdGenerator {
      * 
      * @param amountOfCharacters The number of hexadecimal characters that should be returned.
      * @return A unique identifier as a String in the form 74cb6f38a2760 when the amounOfCharacters = 13.
-     * @throws FixtureException When something got wrong during ID generation. 
-     * @throws IllegalArgumentException when given parameter amountOfCharacters is less then 1 and greater than 64
+     * @throws FixtureException When something went wrong during ID generation, or given parameter 
+     * amountOfCharacters is less then 1 and greater than 64
      */
+    @FixtureMethod
     public String generateUniqueId(int amountOfCharacters) throws FixtureException {
         if (amountOfCharacters > 0 && amountOfCharacters <= characterLength) {
             return generateUniqueId().substring(0, amountOfCharacters);
         } else {
-            throw new IllegalArgumentException("The number of characters should be between 1 and " + characterLength 
-                    + " but was " + amountOfCharacters + ".");
+            throw new FixtureException("The number of characters should be between 1 and " + characterLength 
+                    + " but was " + amountOfCharacters + ".", 
+                    FixtureException.keyValues("amountOfCharacters", amountOfCharacters, 
+                    "characterLength" , characterLength));
         }
     }
     
