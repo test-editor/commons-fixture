@@ -28,7 +28,7 @@ import org.testeditor.fixture.core.interaction.FixtureMethod;
  * SECOND, MILLISECOND] 
  * 
  */
-class DateGenerator {
+public class DateGenerator {
     
     enum OffsetType {
         YEAR, 
