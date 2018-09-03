@@ -11,12 +11,11 @@
  * itemis AG
  *******************************************************************************/
 
-package org.testeditor.fixture.commons.text.generate;
+package org.testeditor.fixture.commons.text;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import java.io.IOException;
 import java.util.Map;
 
 import org.junit.Assert;

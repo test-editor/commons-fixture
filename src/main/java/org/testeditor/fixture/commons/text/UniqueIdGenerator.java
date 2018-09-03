@@ -11,7 +11,7 @@
  * itemis AG
  *******************************************************************************/
 
-package org.testeditor.fixture.commons.text.generate;
+package org.testeditor.fixture.commons.text;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;

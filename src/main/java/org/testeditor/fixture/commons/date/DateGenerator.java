@@ -11,7 +11,7 @@
  * itemis AG
  *******************************************************************************/
 
-package org.testeditor.fixture.commons.date.generate;
+package org.testeditor.fixture.commons.date;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;

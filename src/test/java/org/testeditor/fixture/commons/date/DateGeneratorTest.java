@@ -11,7 +11,7 @@
  * itemis AG
  *******************************************************************************/
 
-package org.testeditor.fixture.commons.date.generate;
+package org.testeditor.fixture.commons.date;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,7 +20,6 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Map;
 
-import org.apache.logging.log4j.core.parser.ParseException;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -28,7 +27,7 @@ import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
-import org.testeditor.fixture.commons.date.generate.DateGenerator.OffsetType;
+import org.testeditor.fixture.commons.date.DateGenerator.OffsetType;
 import org.testeditor.fixture.core.FixtureException;
 
 @RunWith(PowerMockRunner.class)

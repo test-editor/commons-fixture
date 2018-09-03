@@ -11,7 +11,7 @@
  * itemis AG
  *******************************************************************************/
 
-package org.testeditor.fixture.commons.text.generate;
+package org.testeditor.fixture.commons.text;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertEquals;
