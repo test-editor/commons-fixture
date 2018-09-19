@@ -18,6 +18,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testeditor.fixture.core.FixtureException;
 import org.testeditor.fixture.core.interaction.FixtureMethod;
 
@@ -40,6 +42,8 @@ public class DateGenerator {
         SECOND, 
         MILLISECOND 
     }
+    
+    private Logger logger = LoggerFactory.getLogger(DateGenerator.class);
 
     /**
      * This method returns a date as String in a given format like e.g."dd.MM.yyyy" with a given offset
@@ -115,6 +119,9 @@ public class DateGenerator {
             throw new FixtureException("An exception occured when generating a date with offset.", //
                     FixtureException.keyValues("offsetType", type, "offset", offset, "format" , format), e);
         }
+        
+        logger.debug("Generated date with offset {} and offsetType {} in the format {} "
+                + ": {}" , offset, type, format, formattedDateWithOffset);
         return formattedDateWithOffset;
     }
     
@@ -172,57 +179,55 @@ public class DateGenerator {
     
 
     protected String generateYearsFromNowWithOffset(long offset, String format) {
-        LocalDateTime localDate = createLocalDateTime();
+        LocalDateTime localDate = createDateFromNow();
         LocalDate dateWithOffset = localDate.plusYears(offset).toLocalDate();
         return formattedDate(format, dateWithOffset);
     }
 
+
     protected String generateMonthsFromNowWithOffset(long offset, String format) {
-        LocalDateTime localDate = createLocalDateTime();
+        LocalDateTime localDate = createDateFromNow();
         LocalDate dateWithOffset = localDate.plusMonths(offset).toLocalDate();
         return formattedDate(format, dateWithOffset);
     }
     
     protected String generateWeeksFromNowWithOffset(long offset, String format) {
-        LocalDateTime localDate = createLocalDateTime();
+        LocalDateTime localDate = createDateFromNow();
         LocalDate dateWithOffset = localDate.plusWeeks(offset).toLocalDate();
         return formattedDate(format, dateWithOffset);
     }
     
     protected String generateDaysFromNowWithOffset(long offset, String format) {
-        LocalDateTime localDate = createLocalDateTime();
+        LocalDateTime localDate = createDateFromNow();
         LocalDate dateWithOffset = localDate.plusDays(offset).toLocalDate();
         return formattedDate(format, dateWithOffset);
     }
 
     protected String generateHoursFromNowWithOffset(long offset, String format) {
-        LocalDateTime localDate = createLocalDateTime();
+        LocalDateTime localDate = createDateFromNow();
         LocalDateTime dateWithOffset = localDate.plusHours(offset);
         return formattedDate(format, dateWithOffset);
     }
 
     protected String generateMinutesFromNowWithOffset(long offset, String format) {
-        LocalDateTime localDate = createLocalDateTime();
+        LocalDateTime localDate = createDateFromNow();
         LocalDateTime dateWithOffset = localDate.plusMinutes(offset);
         return formattedDate(format, dateWithOffset);
     }
 
     protected String generateSecondsFromNowWithOffset(long offset, String format) {
-        LocalDateTime localDate = createLocalDateTime();
+        LocalDateTime localDate = createDateFromNow();
         LocalDateTime dateWithOffset = localDate.plusSeconds(offset);
         return formattedDate(format, dateWithOffset);
     }
     
     protected String generateMillisecondsFromNowWithOffset(long offset, String format) {
-        LocalDateTime localDate = createLocalDateTime();
+        LocalDateTime localDate = createDateFromNow();
         LocalDateTime dateWithOffset = localDate.plusNanos(offset * 1000000);
         return formattedDate(format, dateWithOffset);
     }
  
-    protected LocalDateTime createLocalDateTime() {
-        return LocalDateTime.now();
-    }    
-    
+   
     protected String formattedDate(String format, LocalDate dateWithOffset) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         return dateWithOffset.format(formatter);
@@ -233,6 +238,11 @@ public class DateGenerator {
         return dateWithOffset.format(formatter);
     }
 
+    protected LocalDateTime createDateFromNow() {
+        LocalDateTime localDate = LocalDateTime.now();
+        logger.debug("LocalDate from now : {}", localDate);
+        return localDate;
+    }
 }
 
 

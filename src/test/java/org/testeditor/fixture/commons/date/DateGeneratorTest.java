@@ -46,7 +46,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.YEAR);
@@ -67,7 +67,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.YEAR);
@@ -88,7 +88,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.MONTH);
@@ -109,7 +109,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.MONTH);
@@ -130,7 +130,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.WEEK);
@@ -151,7 +151,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.WEEK);
@@ -173,7 +173,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(daystoAdd, format, OffsetType.DAY);
@@ -194,7 +194,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(daystoAdd, format, OffsetType.DAY);
@@ -215,7 +215,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(daystoAdd, format, OffsetType.DAY);
@@ -236,7 +236,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.HOUR);
@@ -257,7 +257,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.HOUR);
@@ -278,7 +278,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.MINUTE);
@@ -299,7 +299,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.MINUTE);
@@ -320,7 +320,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.SECOND);
@@ -341,7 +341,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.SECOND);
@@ -362,7 +362,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.MILLISECOND);
@@ -383,7 +383,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, OffsetType.MILLISECOND);
@@ -435,7 +435,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "YEAR");
@@ -456,7 +456,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "YEAR");
@@ -477,7 +477,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "MONTH");
@@ -498,7 +498,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "MONTH");
@@ -519,7 +519,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "WEEK");
@@ -540,7 +540,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "WEEK");
@@ -562,7 +562,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(daystoAdd, format, "DAY");
@@ -583,7 +583,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(daystoAdd, format, "DAY");
@@ -604,7 +604,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(daystoAdd, format, "DAY");
@@ -625,7 +625,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "HOUR");
@@ -646,7 +646,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "HOUR");
@@ -667,7 +667,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "MINUTE");
@@ -688,7 +688,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "MINUTE");
@@ -709,7 +709,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "SECOND");
@@ -730,7 +730,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "SECOND");
@@ -751,7 +751,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "MILLISECOND");
@@ -772,7 +772,7 @@ public class DateGeneratorTest {
         LocalDateTime localdateTimeFixed = LocalDateTime.of(2015, Month.FEBRUARY, 25, 12, 15, 55, 123456789);
         
         // expectation
-        Mockito.when(dateGenerator.createLocalDateTime()).thenReturn(localdateTimeFixed);
+        Mockito.when(dateGenerator.createDateFromNow()).thenReturn(localdateTimeFixed);
 
         // when 
         String birthdateWithOffset = dateGenerator.generateDateFromNowWithOffset(toAdd, format, "MILLISECOND");

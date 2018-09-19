@@ -1,8 +1,8 @@
 plugins {
     id 'maven'
     id 'java'
-    id 'com.jfrog.bintray' version '1.7.3'
-    id 'net.researchgate.release' version '2.6.0'
+    id 'com.jfrog.bintray' version '1.8.0'
+    id 'net.researchgate.release' version '2.7.0'
     id 'eclipse'
 }
 
@@ -12,11 +12,11 @@ apply from: 'code-style/codestyle.gradle'
 def coreFixtureVersion = "4.2.+"
 
 dependencies {
-	compile 'org.slf4j:slf4j-api:1.7.18'
-	compile 'org.apache.logging.log4j:log4j-core:2.5'
-	compile 'org.apache.logging.log4j:log4j-api:2.5'
-	compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.5'
-	compile 'io.inbot:inbot-testfixtures:1.8'
+	compile 'org.slf4j:slf4j-api:1.7.25'
+	compile 'org.apache.logging.log4j:log4j-core:2.11.0'
+	compile 'org.apache.logging.log4j:log4j-api:2.11.0'
+	compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.0'
+	compile 'io.inbot:inbot-testfixtures:1.9'
 	compile 'com.google.guava:guava:23.6-jre'
 	compile "org.testeditor.fixture:core-fixture:$coreFixtureVersion"
 	compile 'com.google.code.gson:gson:2.8.2'

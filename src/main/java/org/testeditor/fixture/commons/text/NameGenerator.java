@@ -22,12 +22,15 @@ import org.testeditor.fixture.commons.io.FileReader;
 import org.testeditor.fixture.core.FixtureException;
 import org.testeditor.fixture.core.interaction.FixtureMethod;
 
+import com.google.gson.JsonObject;
+
+import io.inbot.testfixtures.Person;
 import io.inbot.testfixtures.RandomNameGenerator;
 
 
 /**
- * Simple name generator for first name, last name that generates unique names using a csv file. Or also a Person with
- * email address, company, first and last name. 
+ * Simple name generator for first name, last name that generates unique names using a resource file where each line
+ * is a data set. Or also a Person with email address, company, first and last name. 
  *
  * The number of unique first and last name combinations ranges well into the millions which means you have to generate
  * millions before you start encountering duplicates. This property, makes this generator ideal as a test fixture for 
@@ -40,37 +43,85 @@ import io.inbot.testfixtures.RandomNameGenerator;
  * special characters. The resources can be found under src/main/resources/names.
  *
  */
-public class NameGenerator extends RandomNameGenerator {
+public class NameGenerator {
     
     private static final Logger logger = LoggerFactory.getLogger(NameGenerator.class);
     private static final String firstNames = "names/firstnames.csv";
     private static final String lastNames = "names/lastnames.csv";
     private static final String companyNames = "names/companies.csv";
+    private final RandomNameGenerator generator;
+    private long seed;
     
     
     
     /**
      * Generates names, with email addresses and company names. 
-     * @throws FixtureException 
      */
-    public NameGenerator() throws FixtureException {
-        super(loadNames(firstNames),
-               loadNames(lastNames),loadNames(companyNames));
-        super.shuffle(new Random());
+    public NameGenerator()  {
+        logger.debug("***************************************************************************");
+        logger.debug("Beginning to lo load files ...");
+        generator = new RandomNameGenerator(getNameList(firstNames),getNameList(lastNames),getNameList(companyNames));
+        logger.debug("All files  loaded");
+        logger.debug("***************************************************************************");
     }
     
     /**
-     * Generates names, with email addresses and company names. 
-     * @param seed  The random seed ensures that you can regenerate 
-     * the same sequence of names if you use the same seed.
-     * @throws FixtureException 
+     * Generated person as JsonObject for usage in test cases. 
+     * The usable keywords for the Person JsonObject are: 
+     *  <ul>
+     *    <li>firstName</li>
+     *    <li>lastName</li> 
+     *    <li>fullName</li> 
+     *    <li>userName</li> 
+     *    <li>companyName</li> 
+     *    <li>domainName</li> 
+     *    <li>email</li> 
+     *  </ul>
+     *  <pre>
+     *  
+     *  usage in AML : 
+     *  interaction type createPerson {
+     *    template = "Create Person" 
+     *     method = NameGenearator.getPerson
+     *   }
+     *   
+     *  usage in TCL :
+     *  person = Create Person
+     *  assert person.firstName is "Ferdinand"
+     *  </pre>
+     *  
+     *  For all the other keywords the approach is corresponding in TCL.
+     * @return A JsonObject with the literals of given keywords above.
+     * @throws FixtureException When an error occurs during creation of a person field.
      */
-    public NameGenerator(long seed) throws FixtureException  {
-        super(loadNames(firstNames),loadNames(lastNames),loadNames(companyNames));
-        shuffle(new Random(seed));
+    @FixtureMethod
+    public JsonObject getPerson() throws FixtureException {
+        JsonObject person = new JsonObject();
+        try {
+            Person nextPerson = generator.nextPerson();
+            person.addProperty("firstName", nextPerson.getFirstName());
+            person.addProperty("lastName", nextPerson.getLastName());
+            person.addProperty("fullName", nextPerson.getFullName());
+            person.addProperty("userName", nextPerson.getUserName());
+            person.addProperty("companyName", nextPerson.getCompany());
+            person.addProperty("domainName", nextPerson.getDomainName());
+            person.addProperty("email", nextPerson.getEmail());   
+        } catch (Exception e) {
+            throw new FixtureException("Exception occured, creating a person field with the seed: " + getSeed(), //
+                FixtureException.keyValues("seed", getSeed()), e);
+        }
+        
+        return person;
     }
     
-    protected static List<String> loadNames(String resource) throws FixtureException {
+    
+    /**
+     * Reads all names from given resource file and offers a List of Strings. 
+     * @param resource File with names per line for every new entry. 
+     * @return List of names, one per line. 
+     * @throws FixtureException An error can occur reading the resource file.  
+     */
+    protected List<String> loadNames(String resource) throws FixtureException  {
         FileReader reader = new FileReader();
         List<String> loadedNames = null;
         try {
@@ -83,132 +134,51 @@ public class NameGenerator extends RandomNameGenerator {
     }       
 
     /**
-     * @return Random generated first name.
+     * Shuffles a given list of names in a structured order with the aid of a given seed as a number (long).
+     * This is for using the same tests for analyzing bugs 
+     * @throws FixtureException Exception occurs when something is wrong during shuffle.
      */
     @FixtureMethod
-    public String getRandomFirstName() throws FixtureException {
-        return getFirstName(System.currentTimeMillis());
-    }
-    
-    /**
-     * @return Generated first name  given seed.
-     */
-    @FixtureMethod
-    public String getFirstName(long seed) throws FixtureException {
-        String name  = null;
+    public void shuffle(long seed) throws FixtureException {
+        this.seed = seed;
+        logger.debug("Used seed for shuffle : {}", seed);
         try {
-            NameGenerator nameGenerator = new NameGenerator(seed);
-            name = nameGenerator.nextFirstName();
+            generator.shuffle(new Random(seed));
         } catch (Exception e) {
-            throw new FixtureException("Exception occured, creating a first name with the seed: " + seed, //
-                    FixtureException.keyValues("seed", seed), e);
+            throw new FixtureException("Exception occured during shuffling names with seed: " + getSeed() , //
+                    FixtureException.keyValues("resourceName", getSeed()), e);
+
         }
-        logger.debug("For getFirstName used seed is {}", seed) ;
-        return name;
     }
     
     /**
-     * @return Random generated full name.
+     * Shuffles a given list of names in a random order.
+     * This is for usage in tests if using random names is desired.
+     * @throws FixtureException Exception occurs when something is wrong during shuffle.
      */
     @FixtureMethod
-    public String getRandomFullName() throws FixtureException {
-        return getFullName(System.currentTimeMillis());
-    }
-    
-    /**
-     * @return Generated full name with given seed.
-     */
-    @FixtureMethod
-    public String getFullName(long seed) throws FixtureException {
-        String name  = null;
-        try {
-            NameGenerator nameGenerator = new NameGenerator(seed);
-            name = nameGenerator.nextFullName();
-        } catch (Exception e) {
-            throw new FixtureException("Exception occured, creating a full name with the seed: " + seed, //
-                    FixtureException.keyValues("seed", seed), e);
-        }
-        logger.debug("For getFullName used seed is {}", seed) ;
-        return name;
-    }
-    
-    /**
-     * @return Random generated last name.
-     */
-    @FixtureMethod
-    public String getRandomLastName() throws FixtureException {
-        return getLastName(System.currentTimeMillis());
+    public void shuffleRandom() throws FixtureException {
+        this.shuffle(System.nanoTime());
     }
 
-    /**
-     * @return Generated last name with given seed.
-     */
-    @FixtureMethod
-    public String getLastName(long seed) throws FixtureException {
-        String name  = null;
-        try {
-            NameGenerator nameGenerator = new NameGenerator(seed);
-            name = nameGenerator.nextLastName();
-        } catch (Exception e) {
-            throw new FixtureException("Exception occured, creating a last name with the seed: " + seed, //
-                    FixtureException.keyValues("seed", seed), e);
-        } 
-        logger.debug("For getLastName used seed is {}", seed) ;
-        return name;
-    }
-    
-    /**
-     * @return Random generated company name.
-     */
-    @FixtureMethod
-    public String getRandomCompanyName() throws FixtureException {
-        return getCompanyName(System.currentTimeMillis());
-    }
-    
-    /**
-     * @return Generated company name with given seed.
-     */
-    @FixtureMethod
-    public String getCompanyName(long seed) throws FixtureException {
-        String name  = null;
-        try {
-            NameGenerator nameGenerator = new NameGenerator(seed);
-            name = nameGenerator.nextCompanyName();
-        } catch (Exception e) {
-            throw new FixtureException("Exception occured, creating a company name with the seed: " + seed, //
-                    FixtureException.keyValues("seed", seed), e);
-        }
-        logger.debug("For getCompanyName used seed is {}", seed) ;
-        return name;
-    }
-    
-    /**
-     * @return Random generated Person
-     */    
-    @FixtureMethod
-    public String[] getRandomPersonFields() throws FixtureException {
-        return getPersonFields(System.currentTimeMillis());
-    }
-    
-    /**
-     * @return Generated person with given seed
-     */
-    @FixtureMethod
-    public String[] getPersonFields(long seed) throws FixtureException {
-        String[] personFields  = null;
-        try {
-            NameGenerator nameGenerator = new NameGenerator(seed);
-            personFields = nameGenerator.nextPersonFields();
-        } catch (Exception e) {
-            throw new FixtureException("Exception occured, creating a person field with the seed: " + seed, //
-                    FixtureException.keyValues("seed", seed), e);
-        }
-        logger.debug("For getPersonFields used seed is {}", seed) ;
-        return personFields;
+    protected long getSeed() {
+        return seed;
     }
 
+    protected void setSeed(long seed) {
+        this.seed = seed;
+    }
 
-    
+    private List<String> getNameList(String filename) {
+        List<String> list = null;
+        try {
+            list = loadNames(filename);
+        } catch (FixtureException e) {
+            logger.error("Exception occured during loading names{}" , e.getMessage());
+        }
+        
+        return list;
+    }
 }
 
 

@@ -20,167 +20,26 @@ import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testeditor.fixture.core.FixtureException;
 
+import com.google.gson.JsonObject;
+
 class NameGeneratorTest {
-
-    @Test
-    void generateRandomFirstNameTest() throws FixtureException {
-        // given
-        NameGenerator generator = new NameGenerator();
-        
-        // when 
-        String randomName = generator.getRandomFirstName();
-        
-        // then
-        Assert.assertNotNull(randomName);
-        Assert.assertTrue(randomName.length() > 0);
-    }
     
-    @Test
-    void generateFirstNameWithSeedTest() throws FixtureException {
-        // given
-        NameGenerator generator = new NameGenerator();
-        
-        // when        
-        String randomName = generator.getFirstName(32);
-        
-        // then
-        Assert.assertEquals("Ugochi", randomName);
-    }
-      
-    @Test
-    void generateRandomFullname() throws FixtureException {
-        // given        
-        NameGenerator generator = new NameGenerator();
-        
-        // when        
-        String randomName = generator.getRandomFullName();
-        
-        // then
-        Assert.assertNotNull(randomName);
-        Assert.assertTrue(randomName.length() > 0);
-        //\p{L} - any Unicode letter. \p{M} - any diacritic. \s - whitespace, ' and - are literal single quote and -
-        Assert.assertTrue(randomName.matches("(?U)[\\p{L}\\p{M}]+(?:[\\s'-][\\p{L}\\p{M}]+)*"));
-    }
-
-    @Test
-    void generateFullnameWithSeed() throws FixtureException {
-        // given
-        NameGenerator generator = new NameGenerator();
-
-        // when        
-        String randomName = generator.getFullName(32);
-
-        // then       
-        Assert.assertEquals("Ugochi Strohmeier", randomName);
-    }
-    
-    @Test
-    void generateRandomLastNameTest() throws FixtureException {
-        // given
-        NameGenerator generator = new NameGenerator();
-        
-        // when         
-        String randomName = generator.getRandomLastName();
-        
-        // then        
-        Assert.assertNotNull(randomName);
-        Assert.assertTrue(randomName.length() > 0);
-    }
-    
-    @Test
-    void generateLastNameWithSeedTest() throws FixtureException {
-        // given
-        NameGenerator generator = new NameGenerator();
-        
-        // when         
-        String randomName = generator.getLastName(32);
-        
-        // then        
-        Assert.assertEquals("Strohmeier", randomName);
-    }
-    
-    @Test
-    void generateRandomCompanyNameTest() throws FixtureException {
-        // given
-        NameGenerator generator = new NameGenerator();
-
-        // when         
-        String randomName = generator.getRandomCompanyName();
-
-        // then        
-        Assert.assertNotNull(randomName);
-        Assert.assertTrue(randomName.length() > 0);
-    }
-    
-    @Test
-    void generateCompanyNameWithSeedTest() throws FixtureException {
-        // given
-        NameGenerator generator = new NameGenerator();
-
-        // when         
-        String randomName = generator.getCompanyName(32);
-
-        // then        
-        Assert.assertEquals("Fortune Brands Home & Security", randomName);
-    }
-    
-    @Test
-    void generateRandomPersonFieldsNameTest() throws FixtureException {
-        // given
-        NameGenerator generator = new NameGenerator();
-        
-        // when         
-        String[] personFields = generator.getRandomPersonFields();
-        
-        // then        
-        Assert.assertNotNull(personFields);
-        Assert.assertTrue(personFields.length == 5);
-    }
-    
-    @Test
-    void generatePersonFieldsNameTest() throws FixtureException {
-        // given
-        NameGenerator generator = new NameGenerator();
-        
-        // when         
-        String[] personFields = generator.getPersonFields(32);
-        
-        // then        
-        Assert.assertEquals("Ugochi", personFields[0]);
-        Assert.assertEquals("Strohmeier", personFields[1]);
-        Assert.assertEquals("Fortune Brands Home & Security", personFields[2]);
-        Assert.assertEquals("fortunebrandshomesecurity.com", personFields[3]);
-        Assert.assertEquals("ugochistrohmeier@fortunebrandshomesecurity.com", personFields[4]);
-    }
-    
-    @Test
-    void generatePersonFieldsWithUmlautTest() throws FixtureException {
-        // given
-        NameGenerator generator = new NameGenerator();
-        long seed = 1;
-        
-        // when         
-        String[] personFields = generator.getPersonFields(seed);
-        
-        // then        
-        Assert.assertEquals("Özşan", personFields[0]);
-        Assert.assertEquals("Marois", personFields[1]);
-        Assert.assertEquals("Manning & Napier", personFields[2]);
-        Assert.assertEquals("manningnapier.com", personFields[3]);
-        Assert.assertEquals("zanmarois@manningnapier.com", personFields[4]);
-    }
+    private static final Logger logger = LoggerFactory.getLogger(NameGenerator.class);
     
     
     @Test
-    void getExceptionWhenLoadingNames() {
+    public void getExceptionWhenLoadingNames() {
         // given
         String ecpectedResourceName = "notExisting.csv";
 
         //when 
         Throwable exception = assertThrows(FixtureException.class, () -> {
-            NameGenerator.loadNames(ecpectedResourceName);
+            NameGenerator generator = new NameGenerator();
+            generator.loadNames(ecpectedResourceName);
         });
         
         // then
@@ -191,6 +50,74 @@ class NameGeneratorTest {
         Assert.assertEquals(ecpectedResourceName, actualResourceName);
         
     }
+    
+    @Test
+    public void getPersonTestRandom() throws FixtureException {
+        // given
+        NameGenerator generator = new NameGenerator();
+        generator.shuffleRandom();
+
+        // when         
+        JsonObject person = generator.getPerson();
+        String firstName = person.get("firstName").getAsString();
+        String lastName = person.get("lastName").getAsString();
+        String fullName = person.get("fullName").getAsString();
+        String userName = person.get("userName").getAsString();
+        String company = person.get("companyName").getAsString();
+        String domainName = person.get("domainName").getAsString();
+        String email = person.get("email").getAsString();
+        
+        // then        
+        Assert.assertNotNull(firstName);
+        Assert.assertNotNull(lastName);
+        Assert.assertNotNull(fullName);
+        Assert.assertNotNull(userName);
+        Assert.assertNotNull(company);
+        Assert.assertNotNull(domainName);
+        Assert.assertNotNull(email);
+        logger.debug("firstName: {}", firstName);
+        logger.debug("lastName: {}", lastName);
+        logger.debug("fullName: {}", fullName);
+        logger.debug("userName: {}", userName);
+        logger.debug("companyName: {}", company);
+        logger.debug("domainName: {}", domainName);
+        logger.debug("email address: {}", email);
+    }  
+    
+    @Test
+    public void getPersonTestWithGivenSeed() throws FixtureException {
+        // given
+        long seed = 9;
+        NameGenerator generator = new NameGenerator();
+        generator.shuffle(seed);
+
+        // when         
+        JsonObject person = generator.getPerson();
+        String firstName = person.get("firstName").getAsString();
+        String lastName = person.get("lastName").getAsString();
+        String fullName = person.get("fullName").getAsString();
+        String userName = person.get("userName").getAsString();
+        String company = person.get("companyName").getAsString();
+        String domainName = person.get("domainName").getAsString();
+        String email = person.get("email").getAsString();
+        
+        // then        
+        Assert.assertEquals("Then firstName is not correct", "Özkerman", firstName);
+        Assert.assertEquals("Then lastName is not correct", "Borger", lastName);
+        Assert.assertEquals("Then fullName is not correct", "Özkerman Borger", fullName);
+        Assert.assertEquals("Then userName is not correct", "zkermanborger", userName);
+        Assert.assertEquals("Then company is not correct", "Cidara Therapeutics", company);
+        Assert.assertEquals("Then domainName is not correct", "cidaratherapeutics.com", domainName);
+        Assert.assertEquals("Then email address is not correct", "zkermanborger@cidaratherapeutics.com", email);
+        logger.debug("firstName: {}", firstName);
+        logger.debug("lastName: {}", lastName);
+        logger.debug("fullName: {}", fullName);
+        logger.debug("userName: {}", userName);
+        logger.debug("companyName: {}", company);
+        logger.debug("domainName: {}", domainName);
+        logger.debug("email address: {}", email);
+    }
+
 }
 
 

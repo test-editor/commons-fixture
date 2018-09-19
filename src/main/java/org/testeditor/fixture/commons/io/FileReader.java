@@ -61,7 +61,7 @@ public class FileReader {
         BufferedReader br = new BufferedReader(new InputStreamReader(
                 resolveInputStream(resourceName, NameGenerator.class), StandardCharsets.UTF_8)) ;
         br.lines().map(String::trim).filter(line -> line.length() > 0).forEach(names::add);
-        
+        logger.debug("All data loaded from file {}", resourceName);
         return Collections.unmodifiableList(names);
     }
     

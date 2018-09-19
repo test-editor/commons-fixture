@@ -18,6 +18,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testeditor.fixture.core.FixtureException;
 import org.testeditor.fixture.core.interaction.FixtureMethod;
 
@@ -30,6 +32,7 @@ import org.testeditor.fixture.core.interaction.FixtureMethod;
 public class UniqueIdGenerator {
     
     private final int characterLength = 64;
+    private static final Logger logger = LoggerFactory.getLogger(UniqueIdGenerator.class);
     
     
     /**
@@ -54,7 +57,10 @@ public class UniqueIdGenerator {
             throw new FixtureException("Unknown algorythm.", FixtureException.keyValues("algorythmn", algorithm));
 
         }
-        return bytesToHex(salt.digest());
+        
+        String id = bytesToHex(salt.digest());
+        logger.debug("Generated ID : {}" , id);
+        return id;
     }
     
     /**
@@ -68,7 +74,9 @@ public class UniqueIdGenerator {
     @FixtureMethod
     public String generateUniqueId(int amountOfCharacters) throws FixtureException {
         if (amountOfCharacters > 0 && amountOfCharacters <= characterLength) {
-            return generateUniqueId().substring(0, amountOfCharacters);
+            String id = generateUniqueId().substring(0, amountOfCharacters);
+            logger.debug("Generated id with given amount of {} characters : {}",  amountOfCharacters, id);
+            return id;
         } else {
             throw new FixtureException("The number of characters should be between 1 and " + characterLength 
                     + " but was " + amountOfCharacters + ".", 
