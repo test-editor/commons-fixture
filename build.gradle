@@ -23,8 +23,7 @@ dependencies {
 	// for JUnit5
 	testCompile 'org.junit.jupiter:junit-jupiter-api:5.1.1'
 	testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.1.1'
-	testCompile group: 'org.powermock', name: 'powermock-module-junit4', version: '1.7.1'
-	testCompile group: 'org.powermock', name: 'powermock-api-mockito2', version: '1.7.1'
+    testCompile 'org.mockito:mockito-core:2.23.0'
 }
 
 sourceSets.main.resources.includes = [ "**/*.csv" ]
@@ -38,8 +37,8 @@ repositories {
 
 group = 'org.testeditor.fixture'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.10
+targetCompatibility = 1.10
 
 // show standard out during test to see logging output
 test.testLogging.showStandardStreams = true
