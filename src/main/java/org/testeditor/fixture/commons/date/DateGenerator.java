@@ -173,6 +173,9 @@ public class DateGenerator {
                   FixtureException.keyValues("offsetType", type, "offset", offset, "format" , format), e);
        
         }
+        logger.debug("Generated date with offset {} and offsetType {} in the format {} "
+                + ": {}" , offset, type, format, formattedDateWithOffset);
+
         return formattedDateWithOffset;
     }
     

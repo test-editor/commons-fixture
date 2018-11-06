@@ -58,11 +58,11 @@ public class NameGenerator {
      * Generates names, with email addresses and company names. 
      */
     public NameGenerator()  {
-        logger.debug("***************************************************************************");
-        logger.debug("Beginning to lo load files ...");
+        logger.trace("***************************************************************************");
+        logger.trace("Beginning to lo load files ...");
         generator = new RandomNameGenerator(getNameList(firstNames),getNameList(lastNames),getNameList(companyNames));
-        logger.debug("All files  loaded");
-        logger.debug("***************************************************************************");
+        logger.trace("All files  loaded");
+        logger.trace("***************************************************************************");
     }
     
     /**
@@ -105,7 +105,8 @@ public class NameGenerator {
             person.addProperty("userName", nextPerson.getUserName());
             person.addProperty("companyName", nextPerson.getCompany());
             person.addProperty("domainName", nextPerson.getDomainName());
-            person.addProperty("email", nextPerson.getEmail());   
+            person.addProperty("email", nextPerson.getEmail());
+            logger.debug("Got following person data : " + personToString(nextPerson));
         } catch (Exception e) {
             throw new FixtureException("Exception occured, creating a person field with the seed: " + getSeed(), //
                 FixtureException.keyValues("seed", getSeed()), e);
@@ -179,6 +180,17 @@ public class NameGenerator {
         
         return list;
     }
+    
+    private String personToString(Person person) {
+        return "Person [ firstName='" + person.getFirstName() 
+            + "', lastName='" + person.getLastName() 
+            + "', fullName='" + person.getFullName() 
+            + "', company='" + person.getCompany() 
+            + "', userName='" + person.getUserName() 
+            + "', email='" + person.getEmail() 
+            + "', domainName='" + person.getDomainName() + "' ]";
+    }
+    
 }
 
 

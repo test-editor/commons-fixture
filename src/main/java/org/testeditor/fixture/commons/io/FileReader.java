@@ -45,6 +45,7 @@ public class FileReader {
     public String getFileContentAsString(String fileName) throws IOException {
 
         // Get file from resources folder
+        logger.debug("Get file content as String from file {}." , fileName);
         InputStream inputStream = resolveInputStream(fileName, getClass()); 
         return CharStreams.toString(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
     }
