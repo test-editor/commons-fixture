@@ -54,6 +54,86 @@ class JsonLoaderTest {
             () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("age").getAsInt(), 42));
     }
     
+    @Test
+    void readsExcelExportedCsvFileIntoJson() throws FixtureException {
+        // given
+        String resource = "org/testeditor/fixture/commons/io/json/excelSample.csv";
+        JsonLoader loader = new JsonLoader();
+
+        // when
+        Iterable<JsonObject> actual = loader.loadFromExcelCsv(resource);
+
+        // then
+        assertNotNull(actual);
+        ArrayList<JsonObject> listOfJsonObjects = Lists.newArrayList(actual);
+        assertEquals(3, listOfJsonObjects.size());
+        assertAll("elements", 
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("firstName").getAsString(), "Adam"),
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("lastName").getAsString(), "Young"),
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("age").getAsInt(), 11),
+
+            () -> assertEquals(listOfJsonObjects.get(1).getAsJsonPrimitive("firstName").getAsString(), "Anathema"),
+            () -> assertEquals(listOfJsonObjects.get(1).getAsJsonPrimitive("lastName").getAsString(), "Device"),
+            () -> assertEquals(listOfJsonObjects.get(1).getAsJsonPrimitive("age").getAsInt(), 20),
+
+            () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("firstName").getAsString(), "Newton"),
+            () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("lastName").getAsString(), "Pulsifer"),
+            () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("age").getAsInt(), 26));
+    }
+    
+    @Test
+    void readsJsonFileIntoJson() throws FixtureException {
+        // given
+        String resource = "org/testeditor/fixture/commons/io/json/sample.json";
+        JsonLoader loader = new JsonLoader();
+
+        // when
+        Iterable<JsonObject> actual = loader.loadFromJson(resource);
+
+        // then
+        assertNotNull(actual);
+        ArrayList<JsonObject> listOfJsonObjects = Lists.newArrayList(actual);
+        assertEquals(3, listOfJsonObjects.size());
+        assertAll("elements", 
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("firstName").getAsString(), "Luke"),
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("lastName").getAsString(), "Skywalker"),
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("strongWithTheForce").getAsBoolean(), true),
+
+            () -> assertEquals(listOfJsonObjects.get(1).getAsJsonPrimitive("firstName").getAsString(), "Han"),
+            () -> assertEquals(listOfJsonObjects.get(1).getAsJsonPrimitive("lastName").getAsString(), "Solo"),
+            () -> assertEquals(listOfJsonObjects.get(1).getAsJsonPrimitive("strongWithTheForce").getAsBoolean(), false),
+
+            () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("firstName").getAsString(), "Leia"),
+            () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("lastName").getAsString(), "Organa"),
+            () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("strongWithTheForce").getAsBoolean(), true));
+    }
+
+    @Test
+    void readsYamlFileIntoJson() throws FixtureException {
+        // given
+        String resource = "org/testeditor/fixture/commons/io/json/sample.yaml";
+        JsonLoader loader = new JsonLoader();
+
+        // when
+        Iterable<JsonObject> actual = loader.loadFromYaml(resource);
+
+        // then
+        assertNotNull(actual);
+        ArrayList<JsonObject> listOfJsonObjects = Lists.newArrayList(actual);
+        assertEquals(3, listOfJsonObjects.size());
+        assertAll("elements", 
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("firstName").getAsString(), "John"),
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("lastName").getAsString(), "Steinbeck"),
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("yearOfBirth").getAsInt(), 1902),
+
+            () -> assertEquals(listOfJsonObjects.get(1).getAsJsonPrimitive("firstName").getAsString(), "Ernest"),
+            () -> assertEquals(listOfJsonObjects.get(1).getAsJsonPrimitive("lastName").getAsString(), "Hemingway"),
+            () -> assertEquals(listOfJsonObjects.get(1).getAsJsonPrimitive("yearOfBirth").getAsInt(), 1899),
+
+            () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("firstName").getAsString(), "Ken"),
+            () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("lastName").getAsString(), "Kesey"),
+            () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("yearOfBirth").getAsInt(), 1935));
+    }
     
     @Test
     void readsTableIntoJson() throws FixtureException {

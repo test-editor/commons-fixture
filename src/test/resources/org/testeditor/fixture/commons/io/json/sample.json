@@ -1,0 +1,15 @@
+[
+	{
+		"firstName": "Luke",
+		"lastName": "Skywalker",
+		"strongWithTheForce": true
+	}, {
+		"firstName": "Han",
+		"lastName": "Solo",
+		"strongWithTheForce": false
+	}, {
+		"firstName": "Leia",
+		"lastName": "Organa",
+		"strongWithTheForce": true
+	}
+]
