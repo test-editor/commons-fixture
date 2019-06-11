@@ -1,0 +1,34 @@
+package org.testeditor.fixture.commons.io.json
+
+import org.testeditor.fixture.commons.io.json.JsonLoader
+
+interaction type loadFromJson {
+    template = "load from JSON file" ${file}
+    method = JsonLoader.loadFromJson(file)
+}
+
+interaction type loadFromYaml {
+    template = "load from YAML file" ${file}
+    method = JsonLoader.loadFromYaml(file)
+}
+
+interaction type loadFromCsv {
+    template = "load from CSV file" ${file}
+    method = JsonLoader.loadFromCsv(file)
+}
+
+interaction type loadFromExcelCsv {
+    template = "load from CSV file" ${file} "exported from Excel"
+    method = JsonLoader.loadFromExcelCsv(file)
+}
+
+interaction type loadFromTable {
+    template = "load from table" ${table}
+    method = JsonLoader.loadFromTable(table)
+}
+
+component type ParameterizedTestingType {
+    interactions = loadFromJson, loadFromYaml, loadFromCsv, loadFromExcelCsv, loadFromTable
+}
+
+component ParameterizedTesting is ParameterizedTestingType

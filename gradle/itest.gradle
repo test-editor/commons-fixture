@@ -1,0 +1,34 @@
+sourceSets {
+    itest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+configurations {
+    itestImplementation.extendsFrom implementation, testImplementation
+    itestRuntimeOnly.extendsFrom runtimeOnly
+}
+
+task itest(type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+    
+    testClassesDirs = sourceSets.itest.output.classesDirs
+    classpath = sourceSets.itest.runtimeClasspath
+    
+    shouldRunAfter test
+}
+
+
+check.dependsOn itest
+
+itest {
+    useJUnitPlatform()
+}
+
+eclipse {
+    classpath {
+        plusConfigurations += [ configurations.itestCompileClasspath ]
+    }
+}

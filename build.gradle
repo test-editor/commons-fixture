@@ -8,36 +8,55 @@ plugins {
 
 
 apply from: 'code-style/codestyle.gradle'
+apply from: "${rootDir}/gradle/itest.gradle"
 
 def coreFixtureVersion = "4.4.+"
+def junitVersion = "5.1.1"
 
 dependencies {
-	compile 'org.slf4j:slf4j-api:1.7.25'
-	compile 'org.apache.commons:commons-csv:1.6'
-	compile 'org.apache.logging.log4j:log4j-core:2.11.0'
-	compile 'org.apache.logging.log4j:log4j-api:2.11.0'
-	compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.0'
-	compile 'io.inbot:inbot-testfixtures:1.9'
-	compile 'com.google.guava:guava:23.6-jre'
-	compile "org.testeditor.fixture:core-fixture:$coreFixtureVersion"
-	compile 'com.google.code.gson:gson:2.8.2'
-	compile 'com.fasterxml.jackson.core:jackson-core:2.9.9'
-	compile 'com.fasterxml.jackson.core:jackson-databind:2.9.9'
-	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.9'
+	implementation 'org.slf4j:slf4j-api:1.7.25'
+	implementation 'org.apache.commons:commons-csv:1.6'
+	implementation 'org.apache.logging.log4j:log4j-core:2.11.0'
+	implementation 'org.apache.logging.log4j:log4j-api:2.11.0'
+	implementation 'org.apache.logging.log4j:log4j-slf4j-impl:2.11.0'
+	implementation 'io.inbot:inbot-testfixtures:1.9'
+	implementation 'com.google.guava:guava:23.6-jre'
+	implementation "org.testeditor.fixture:core-fixture:$coreFixtureVersion"
+	implementation 'com.google.code.gson:gson:2.8.2'
+	implementation 'com.fasterxml.jackson.core:jackson-core:2.9.9'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.9'
+	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.9'
         
 	// for JUnit5
-	testCompile 'org.junit.jupiter:junit-jupiter-api:5.1.1'
-	testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.1.1'
-    testCompile 'org.mockito:mockito-core:2.23.0'
-}
+	testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+	testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    testImplementation 'org.mockito:mockito-core:2.23.0'
+    
+    itestImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    itestRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+    itestImplementation "org.testeditor:org.testeditor.aml.dsl:2.3.4"
+    itestImplementation "org.testeditor:org.testeditor.aml.dsl.ide:2.3.4"
+    itestImplementation "org.testeditor:org.testeditor.aml.model:2.3.4"
+    itestImplementation "org.testeditor:org.testeditor.dsl.common:2.3.4"
+    itestImplementation "org.testeditor:org.testeditor.dsl.common.model:2.3.4"
+    itestImplementation "org.testeditor:org.testeditor.tcl.dsl:2.3.4"
+    itestImplementation "org.testeditor:org.testeditor.tcl.model:2.3.4"
+    itestImplementation "org.testeditor:org.testeditor.tcl.dsl.ide:2.3.4"
+    itestImplementation "org.testeditor:org.testeditor.tsl.dsl.web:2.3.4"
+    itestImplementation "com.google.inject:guice:3.0"
+    itestImplementation "org.eclipse.xtext:org.eclipse.xtext.testing:2.15.0"
+    }
 
-sourceSets.main.resources.includes = [ "**/*.csv" ]
+sourceSets.main.resources.includes = [ "**/*.csv", "**/*.aml" ]
 
 /*
  * code below copied from core-fixture
  */
 repositories {
     jcenter()
+    maven {
+        url  "http://dl.bintray.com/test-editor/maven"
+    }
 }
 
 group = 'org.testeditor.fixture'

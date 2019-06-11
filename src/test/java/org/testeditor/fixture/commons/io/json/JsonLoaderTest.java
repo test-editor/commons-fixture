@@ -13,10 +13,14 @@
 
 package org.testeditor.fixture.commons.io.json;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import org.junit.jupiter.api.Test;
@@ -164,5 +168,17 @@ class JsonLoaderTest {
             () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("firstName").getAsString(), "Zaphod"),
             () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("lastName").getAsString(), "Beeblebrox"),
             () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("age").getAsInt(), 42));
+    }
+    
+    @Test
+    void canLocateAmlFile() {
+        // given
+        String resourcePath = "/org/testeditor/fixture/commons/io/json/JsonLoader.aml";
+        
+        // when
+        InputStream resource = getClass().getResourceAsStream(resourcePath);
+        
+        // then
+        assertThat(resource, is(notNullValue()));
     }
 }
