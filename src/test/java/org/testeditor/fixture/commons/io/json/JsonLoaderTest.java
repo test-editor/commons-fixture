@@ -27,6 +27,7 @@ import org.junit.jupiter.api.Test;
 import org.testeditor.fixture.core.FixtureException;
 
 import com.google.common.collect.Lists;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 class JsonLoaderTest {
@@ -168,6 +169,56 @@ class JsonLoaderTest {
             () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("firstName").getAsString(), "Zaphod"),
             () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("lastName").getAsString(), "Beeblebrox"),
             () -> assertEquals(listOfJsonObjects.get(2).getAsJsonPrimitive("age").getAsInt(), 42));
+    }
+    
+    @Test
+    void readsJsonFileWithNestedDataIntoJson() throws FixtureException {
+        // given
+        String resource = "org/testeditor/fixture/commons/io/json/nestedDataSample.json";
+        JsonLoader loader = new JsonLoader();
+
+        // when
+        Iterable<JsonObject> actual = loader.loadFromJson(resource);
+
+        // then
+        assertNotNull(actual);
+        ArrayList<JsonObject> listOfJsonObjects = Lists.newArrayList(actual);
+        assertEquals(3, listOfJsonObjects.size());
+        JsonArray nestedArray = listOfJsonObjects.get(0).getAsJsonArray("spaceships");
+        assertAll("elements", 
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("firstName").getAsString(), "Luke"),
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("lastName").getAsString(), "Skywalker"),
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("strongWithTheForce").getAsBoolean(), true),
+            
+            () -> assertEquals(nestedArray.get(0).getAsJsonObject().get("model").getAsString(), "X-Wing"),
+            () -> assertEquals(nestedArray.get(0).getAsJsonObject().get("manufacturer").getAsString(),
+                    "Incom Corporation"),
+            () -> assertEquals(nestedArray.get(0).getAsJsonObject().get("lengthMeters").getAsFloat(), 12.5f));
+    }
+    
+    @Test
+    void readsYamlFileWithNestedDataIntoJson() throws FixtureException {
+        // given
+        String resource = "org/testeditor/fixture/commons/io/json/nestedDataSample.yaml";
+        JsonLoader loader = new JsonLoader();
+
+        // when
+        Iterable<JsonObject> actual = loader.loadFromYaml(resource);
+
+        // then
+        assertNotNull(actual);
+        ArrayList<JsonObject> listOfJsonObjects = Lists.newArrayList(actual);
+        assertEquals(3, listOfJsonObjects.size());
+        JsonArray nestedArray = listOfJsonObjects.get(0).getAsJsonArray("books");
+        assertAll("elements", 
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("firstName").getAsString(), "John"),
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("lastName").getAsString(), "Steinbeck"),
+            () -> assertEquals(listOfJsonObjects.get(0).getAsJsonPrimitive("yearOfBirth").getAsInt(), 1902),
+            
+            () -> assertEquals(nestedArray.get(0).getAsJsonObject().get("title").getAsString(), "Of Mice and Men"),
+            () -> assertEquals(nestedArray.get(0).getAsJsonObject().get("publicationDate").getAsInt(), 1937),
+            () -> assertEquals(nestedArray.get(1).getAsJsonObject().get("title").getAsString(), "The Grapes of Wrath"),
+            () -> assertEquals(nestedArray.get(1).getAsJsonObject().get("publicationDate").getAsInt(), 1939));
     }
     
     @Test

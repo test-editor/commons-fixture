@@ -1,0 +1,33 @@
+[
+	{
+		"firstName": "Luke",
+		"lastName": "Skywalker",
+		"strongWithTheForce": true,
+		"spaceships": [
+		{
+			"model": "X-Wing",
+			"manufacturer": "Incom Corporation",
+			"lengthMeters": 12.5
+		}]
+	}, {
+		"firstName": "Han",
+		"lastName": "Solo",
+		"strongWithTheForce": false,
+		"spaceships": [
+		{
+			"model": "YT-1300 Leight Freighter",
+			"manufacturer": "Corellian Engineering Corporation",
+			"lengthMeters": 34.75
+		}]
+	}, {
+		"firstName": "Leia",
+		"lastName": "Organa",
+		"strongWithTheForce": true,
+		"spaceships": [
+		{
+			"model": "Corellian Corvette",
+			"manufacturer": "Corellian Engineering Corporation",
+			"lengthMeters": 150
+		}]
+	}
+]

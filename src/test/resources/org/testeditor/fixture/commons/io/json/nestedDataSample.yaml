@@ -1,0 +1,22 @@
+- firstName: John
+  lastName: Steinbeck
+  yearOfBirth: 1902
+  books:
+  - title: Of Mice and Men
+    publicationDate: 1937
+  - title: The Grapes of Wrath
+    publicationDate: 1939
+- firstName: Ernest
+  lastName: Hemingway
+  books:
+  - title: The Old Man and the Sea
+    publicationDate: 1952
+  yearOfBirth: 1899
+- firstName: Ken
+  lastName: Kesey
+  yearOfBirth: 1935
+  books:
+  - title: Sometimes a Great Notion
+    publicationDate: 1964
+  - title: One Flew Over the Cuckoo's Nest
+    publicationDate: 1962
