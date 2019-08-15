@@ -12,6 +12,7 @@ apply from: "${rootDir}/gradle/itest.gradle"
 
 def coreFixtureVersion = "4.4.+"
 def junitVersion = "5.1.1"
+def testEditorLanguageVersion = "2.3.5"
 
 dependencies {
 	implementation 'org.slf4j:slf4j-api:1.7.25'
@@ -34,17 +35,17 @@ dependencies {
     
     itestImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     itestRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-    itestImplementation "org.testeditor:org.testeditor.aml.dsl:2.3.4"
-    itestImplementation "org.testeditor:org.testeditor.aml.dsl.ide:2.3.4"
-    itestImplementation "org.testeditor:org.testeditor.aml.model:2.3.4"
-    itestImplementation "org.testeditor:org.testeditor.dsl.common:2.3.4"
-    itestImplementation "org.testeditor:org.testeditor.dsl.common.model:2.3.4"
-    itestImplementation "org.testeditor:org.testeditor.tcl.dsl:2.3.4"
-    itestImplementation "org.testeditor:org.testeditor.tcl.model:2.3.4"
-    itestImplementation "org.testeditor:org.testeditor.tcl.dsl.ide:2.3.4"
-    itestImplementation "org.testeditor:org.testeditor.tsl.dsl.web:2.3.4"
+    itestImplementation "org.testeditor:org.testeditor.aml.dsl:$testEditorLanguageVersion"
+    itestImplementation "org.testeditor:org.testeditor.aml.dsl.ide:$testEditorLanguageVersion"
+    itestImplementation "org.testeditor:org.testeditor.aml.model:$testEditorLanguageVersion"
+    itestImplementation "org.testeditor:org.testeditor.dsl.common:$testEditorLanguageVersion"
+    itestImplementation "org.testeditor:org.testeditor.dsl.common.model:$testEditorLanguageVersion"
+    itestImplementation "org.testeditor:org.testeditor.tcl.dsl:$testEditorLanguageVersion"
+    itestImplementation "org.testeditor:org.testeditor.tcl.model:$testEditorLanguageVersion"
+    itestImplementation "org.testeditor:org.testeditor.tcl.dsl.ide:$testEditorLanguageVersion"
+    itestImplementation "org.testeditor:org.testeditor.tsl.dsl.web:$testEditorLanguageVersion"
     itestImplementation "com.google.inject:guice:3.0"
-    itestImplementation "org.eclipse.xtext:org.eclipse.xtext.testing:2.15.0"
+    itestImplementation "org.eclipse.xtext:org.eclipse.xtext.testing:2.18.0"
     }
 
 sourceSets.main.resources.includes = [ "**/*.csv", "**/*.aml" ]
