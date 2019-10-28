@@ -10,7 +10,7 @@ plugins {
 apply from: 'code-style/codestyle.gradle'
 apply from: "${rootDir}/gradle/itest.gradle"
 
-def coreFixtureVersion = "4.4.+"
+def coreFixtureVersion = "4.4.0"
 def junitVersion = "5.1.1"
 def testEditorLanguageVersion = "2.3.5"
 
